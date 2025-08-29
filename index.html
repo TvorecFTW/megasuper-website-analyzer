@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Website Analyzer</h1>
+        <div class="input-group">
+            <label for="url">Website URL:</label>
+            <input type="text" id="url" name="url" placeholder="Enter website URL">
+        </div>
+        <div class="button-group">
+            <button onclick="quickScan()">Quick Scan</button>
+            <button onclick="whois()">WHOIS</button>
+            <button onclick="ipInfo()">IP Info</button>
+            <button onclick="virustotal()">VirusTotal</button>
+            <button onclick="dns()">DNS Records</button>
+            <button onclick="ssl()">SSL Certificate</button>
+            <button onclick="ipNeighbors()">IP Neighbors</button>
+            <button onclick="snapshot()">Save Snapshot</button>
+            <button onclick="deepAnalysis()">Deep Analysis</button>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+    // Автоматическое определение базового URL
+    const BASE_URL = window.location.origin;
+
+    function quickScan() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/quick_scan?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function whois() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/whois?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function ipInfo() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/ip_info?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function virustotal() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/virustotal?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function dns() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/dns?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function ssl() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/ssl?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function ipNeighbors() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/ip_neighbors?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function snapshot() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/snapshot?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function deepAnalysis() {
+        const url = document.getElementById('url').value;
+        if (!url) {
+            alert('Enter website URL');
+            return;
+        }
+        fetch(`${BASE_URL}/api/deep_analysis?url=${encodeURIComponent(url)}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => displayError(error));
+    }
+
+    function displayResults(data) {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = JSON.stringify(data, null, 2);
+    }
+
+    function displayError(error) {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `Error: ${error.message}\n\nPlease check if the API is deployed correctly.`;
+    }
+</script>
+</body>
+</html>
